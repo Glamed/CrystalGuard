@@ -1,0 +1,9 @@
+name: CrystalSpec
+author: Glamify
+version: '${project.version}'
+main: games.sparking.spectator.Spectator
+commands:
+  spectator:
+    aliases: spec
+  vanish:
+    aliases: [v, van, minivan]
