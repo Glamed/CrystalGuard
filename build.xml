@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="CrystalWars" default="Build">
+
+    <!-- Importing properties from pom.xml -->
+    <xmlproperty file="path/to/your/pom.xml" prefix="pom" keeproot="false"/>
+
+    <!-- Target for building the project -->
+    <target name="Build">
+        <!-- Creating a JAR file -->
+        <jar jarfile="C:/Users/andre/Desktop/Sparking/developer/plugins/${ant.project.name}.jar"
+             basedir="./target/classes/" includes="**/*"/>
+    </target>
+
+</project>

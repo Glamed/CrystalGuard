@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:/Repo/Spectator/Spectator.iml" filepath="D:/Repo/Spectator/Spectator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Spectator/CrystalGuard.iml" filepath="$PROJECT_DIR$/../Spectator/CrystalGuard.iml" />
     </modules>
   </component>
 </project>

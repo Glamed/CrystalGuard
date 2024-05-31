@@ -4,11 +4,12 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="D:/Repo/Spectator/pom.xml" />
+        <option value="$PROJECT_DIR$/../Spectator/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
-    <output url="file://D:/Repo/Spectator/out" />
+    <output url="file://$PROJECT_DIR$/../Spectator/out" />
   </component>
 </project>

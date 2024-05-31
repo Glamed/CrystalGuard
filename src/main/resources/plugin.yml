@@ -1,9 +1,11 @@
 name: CrystalSpec
 author: Glamify
 version: '${project.version}'
-main: games.sparking.spectator.Spectator
+main: games.sparking.crystalguard.CrystalGuard
 commands:
   spectator:
     aliases: spec
   vanish:
     aliases: [v, van, minivan]
+  report:
+    aliases: [cr, chatreport]
