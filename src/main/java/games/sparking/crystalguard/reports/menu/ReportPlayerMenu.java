@@ -1,11 +1,14 @@
 package games.sparking.crystalguard.reports.menu;
 
-import games.sparking.crystalguard.menu.Button;
-import games.sparking.crystalguard.menu.buttons.BackButton;
-import games.sparking.crystalguard.menu.menu.ConfirmationMenu;
-import games.sparking.crystalguard.menu.page.PagedMenu;
+import games.sparking.crystalguard.reports.PunishmentTypes;
+import games.sparking.crystalguard.reports.ReportManager;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.Profile;
+import games.sparking.crystalguard.utils.menu.Button;
+import games.sparking.crystalguard.utils.menu.buttons.BackButton;
+import games.sparking.crystalguard.utils.menu.menu.ConfirmationMenu;
+import games.sparking.crystalguard.utils.menu.page.PagedMenu;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +20,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
+@AllArgsConstructor
 public class ReportPlayerMenu extends PagedMenu {
+
+    PunishmentTypes type;
 
     @Override
     public String getRawTitle(Player player) {
@@ -67,10 +73,11 @@ public class ReportPlayerMenu extends PagedMenu {
 
         @Override
         public void click(Player whoClicked, int slot, ClickType clickType, int hotbarButton) {
-            if (clickType == ClickType.RIGHT) {
+            if (clickType == ClickType.LEFT || clickType == ClickType.RIGHT) {
                 new ConfirmationMenu(
                         "Report " + p.getName() + "?",
                         b -> {
+                            ReportManager.create(whoClicked, p, type);
                             whoClicked.sendMessage("banned");
                         }
                 ).openMenu(whoClicked);

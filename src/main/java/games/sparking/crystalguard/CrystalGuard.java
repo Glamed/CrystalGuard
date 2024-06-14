@@ -1,24 +1,43 @@
 package games.sparking.crystalguard;
 
+import games.sparking.crystalguard.development.DevelopmentListener;
+import games.sparking.crystalguard.punish.commands.PunishCommand;
+import games.sparking.crystalguard.reports.Report;
+import games.sparking.crystalguard.reports.commands.ChatReportViewCommand;
 import games.sparking.crystalguard.reports.commands.ReportCommand;
+import games.sparking.crystalguard.reports.commands.ReportDebugCommand;
+import games.sparking.crystalguard.reports.commands.ReportHandleCommand;
+import games.sparking.crystalguard.reports.listeners.ReportMessageListener;
+import games.sparking.crystalguard.staffmode.StaffMode;
+import games.sparking.crystalguard.staffmode.StaffModeVisibilityAdapter;
 import games.sparking.crystalguard.staffmode.commands.SpectatorCommand;
+import games.sparking.crystalguard.staffmode.commands.StaffModeCommand;
 import games.sparking.crystalguard.staffmode.commands.VanishCommand;
-import games.sparking.crystalguard.staffmode.listeners.VanishListeners;
-import games.sparking.crystalguard.menu.listener.MenuListener;
+import games.sparking.crystalguard.staffmode.listeners.StaffModeListener;
+import games.sparking.crystalguard.utils.menu.listener.MenuListener;
+import games.sparking.crystalguard.utils.mongo.MongoService;
+import games.sparking.crystalguard.visibility.VisibilityService;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public final class CrystalGuard extends JavaPlugin {
 
     @Getter
-    private static ArrayList<Player> vanished = new ArrayList();
+    private boolean staffModeOnJoin = false;
+
+    @Getter
+    private static ArrayList<Report> reports = new ArrayList<>();
+
+    @Getter
+    private static HashMap<UUID, String> reportsInProgress = new HashMap<>();
 
     @Getter
     private static CrystalGuard instance;
@@ -27,34 +46,50 @@ public final class CrystalGuard extends JavaPlugin {
     public void onEnable() {
         //instance
         instance = this;
+
+        MongoService.connect();
         //Menu listener system
 
-        Arrays.asList(
-                new VanishListeners(),
-                new MenuListener()
-        ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, instance));
+        List<Listener> events = new ArrayList<>();
+
+        if (Bukkit.getServer().getServerName().equalsIgnoreCase("DEV")) {
+            events.add(new DevelopmentListener());
+        }
+
+        VisibilityService.init();
+        VisibilityService.registerVisibilityAdapter(new StaffModeVisibilityAdapter());
+        VisibilityService.setOnlineTreatProvider((player, sender) -> {
+            if (!(sender instanceof Player))
+                return true;
+
+            StaffMode staffMode = StaffMode.get(player);
+            if (!staffMode.isVanished())
+                return true;
+
+            return sender.hasPermission("zircon.staff") || ((Player) sender).canSee(player);
+        });
+
+
+        events.add(new StaffModeListener());
+        events.add(new MenuListener());
+        events.add(new ReportMessageListener());
+
+        events.forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, instance));
 
         getCommand("spectator").setExecutor(new SpectatorCommand());
+        getCommand("staffmode").setExecutor(new StaffModeCommand());
         getCommand("vanish").setExecutor(new VanishCommand());
+        getCommand("punish").setExecutor(new PunishCommand());
         getCommand("report").setExecutor(new ReportCommand());
+        getCommand("reporthandle").setExecutor(new ReportHandleCommand());
+        getCommand("reportdebug").setExecutor(new ReportDebugCommand());
+        getCommand("chatreportview").setExecutor(new ChatReportViewCommand());
 
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Player player : CrystalGuard.getVanished()) {
-                    player.sendMessage("");
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&8[&5&l✦&8]&7 You are currently vanished &8[&5&l✦&8]"));
-                    player.sendMessage("");
-                }
-            }
-        }.runTaskTimer(this, 0L, 1200L);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
     }
-
 
 }

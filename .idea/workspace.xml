@@ -4,46 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b41e97c-ca8b-488b-a53f-a754459b5ba8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cache/mojang_1.8.8.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cache/patched_1.8.8.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportPlayerMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="4b41e97c-ca8b-488b-a53f-a754459b5ba8" name="Changes" comment="stuff">
+      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/development/DevelopmentListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishmentType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/commands/PunishCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/menu/PunishMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/MessageCache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/PunishmentTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/Reason.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/Report.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ChatReportViewCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportDebugCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportHandleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/listeners/ReportMessageListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportPlayerMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffModeVisibilityAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/StaffModeCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/listeners/StaffModeListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineBlockMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/OnlineStaffMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/CC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/Rank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/Statics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/TimeUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/mongo/MongoConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/mongo/MongoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/Spectator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/CrystalGuard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/commands/SpectatorCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/SpectatorCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/commands/VanishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/VanishCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/commands/menu/SpectatorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/SpectatorMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/listeners/VanishListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/listeners/VanishListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/buttons/BackButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/buttons/BackButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/buttons/ConfirmationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/buttons/ConfirmationButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/fill/FillTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/FillTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/fill/IMenuFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/IMenuFiller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/fill/impl/BorderFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/impl/BorderFiller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/fill/impl/FillFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/impl/FillFiller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/hotbaritem/HotbarItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/hotbaritem/HotbarItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/listener/MenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/listener/MenuListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/menu/ConfirmationMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/menu/ConfirmationMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/page/PageButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/page/PageButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/menu/page/PagedMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/page/PagedMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/timebased/TimeBasedContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/timebased/TimeBasedContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/timebased/TimeBasedMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/timebased/TimeBasedMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/utils/ItemBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ItemBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/spectator/utils/TypeCallable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/TypeCallable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/CrystalGuard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/CrystalGuard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/buttons/BackButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/BackButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/buttons/ConfirmationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/ConfirmationButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/FillTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/fill/FillTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/IMenuFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/fill/IMenuFiller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/impl/BorderFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/fill/impl/BorderFiller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/fill/impl/FillFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/fill/impl/FillFiller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/hotbaritem/HotbarItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/hotbaritem/HotbarItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/listener/MenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/listener/MenuListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/menu/ConfirmationMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/menu/ConfirmationMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/page/PageButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/page/PageButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/menu/page/PagedMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/page/PagedMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportPlayerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportPlayerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/VanishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/VanishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/listeners/VanishListeners.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/SpectatorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/SpectatorMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/timebased/TimeBasedContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/timebased/TimeBasedContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/timebased/TimeBasedMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/timebased/TimeBasedMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +74,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -98,7 +119,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/andre/Desktop/Sparking/developer/run.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/andre/Desktop/MineWorldLOL/Invictus&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -107,12 +128,19 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Repo\CrystalGuard\src\main\java\games\sparking\crystalguard\staffmode\menu" />
+      <recent name="D:\Repo\CrystalGuard\src\main\java\games\sparking\crystalguard" />
       <recent name="D:\Repo\Spectator\target" />
       <recent name="D:\Repo\Spectator\src\main\java\games\sparking\spectator" />
       <recent name="D:\Repo\Spectator\src\main\java\games\sparking\spectator\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Repo\Spectator\src\main\java\games\sparking\spectator" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="games.sparking.crystalguard.staffmode" />
+      <recent name="games.sparking.crystalguard.reports" />
+      <recent name="games.sparking.crystalguard.utils" />
     </key>
   </component>
   <component name="RunManager" selected="JAR Application.Server">
@@ -185,10 +213,21 @@
       <option name="presentableId" value="Default" />
       <updated>1715887596638</updated>
     </task>
+    <task id="LOCAL-00001" summary="stuff">
+      <option name="closed" value="true" />
+      <created>1717194339289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717194339289</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="stuff" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

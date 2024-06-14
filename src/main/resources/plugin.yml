@@ -5,7 +5,17 @@ main: games.sparking.crystalguard.CrystalGuard
 commands:
   spectator:
     aliases: spec
+  staffmode:
+    aliases: [ sm, modmode, mm ]
   vanish:
-    aliases: [v, van, minivan]
+    aliases: [ v, van, minivan ]
+  punish:
+    aliases: [ p ]
   report:
-    aliases: [cr, chatreport]
+    aliases: [ cr, chatreport ]
+  chatreportview:
+    aliases: [ crv ]
+  reporthandle:
+    aliases: [ rh ]
+  reportdebug:
+    aliases: [ rd ]

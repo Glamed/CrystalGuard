@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class VanishCommand implements CommandExecutor {
+public class StaffModeCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -18,7 +18,7 @@ public class VanishCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5&l✦ &7This command was not recognized&5."));
                 return true;
             }
-            StaffMode.get(player).toggleVanish(false);
+            StaffMode.get(player).toggleEnabled(false);
         }
         return true;
     }
