@@ -1,21 +1,22 @@
 package games.sparking.crystalguard.reports;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Data
+@NoArgsConstructor
 public class MessageCache {
 
     private String uuid;
     private long time;
     private String message;
-    private List<UUID> recipients;
-    private List<UUID> reportedBy = new ArrayList<>();
+    private List<String> recipients;
+    private List<String> reportedBy = new ArrayList<>();
 
-    public MessageCache(String uuid, List<UUID> recipients, long time, String message) {
+    public MessageCache(String uuid, List<String> recipients, long time, String message) {
         this.uuid = uuid;
         this.recipients = recipients;
         this.time = time;

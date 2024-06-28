@@ -1,12 +1,49 @@
 package games.sparking.crystalguard.utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CC {
-    
+
+    public static final String BLUE = ChatColor.BLUE.toString();
+    public static final String AQUA = ChatColor.AQUA.toString();
+    public static final String YELLOW = ChatColor.YELLOW.toString();
+    public static final String RED = ChatColor.RED.toString();
+    public static final String GRAY = ChatColor.GRAY.toString();
+    public static final String GOLD = ChatColor.GOLD.toString();
+    public static final String GREEN = ChatColor.GREEN.toString();
+    public static final String WHITE = ChatColor.WHITE.toString();
+    public static final String BLACK = ChatColor.BLACK.toString();
+    public static final String BOLD = ChatColor.BOLD.toString();
+    public static final String ITALIC = ChatColor.ITALIC.toString();
+    public static final String UNDER_LINE = ChatColor.UNDERLINE.toString();
+    public static final String STRIKE_THROUGH = ChatColor.STRIKETHROUGH.toString();
+    public static final String RESET = ChatColor.RESET.toString();
+    public static final String MAGIC = ChatColor.MAGIC.toString();
+    public static final String DBLUE = ChatColor.DARK_BLUE.toString();
+    public static final String DAQUA = ChatColor.DARK_AQUA.toString();
+    public static final String DGRAY = ChatColor.DARK_GRAY.toString();
+    public static final String DGREEN = ChatColor.DARK_GREEN.toString();
+    public static final String DPURPLE = ChatColor.DARK_PURPLE.toString();
+    public static final String DRED = ChatColor.DARK_RED.toString();
+    public static final String PURPLE = ChatColor.DARK_PURPLE.toString();
+    public static final String PINK = ChatColor.LIGHT_PURPLE.toString();
+    public static final String MENU_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH +
+            "------------------------";
+    public static final String CHAT_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH +
+            "------------------------------------------------";
+    public static final String SMALL_CHAT_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH +
+            "-----------------";
+    public static final String SB_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH +
+            "----------------------";
+    public static final String VERTICAL_BAR = StringEscapeUtils.unescapeJava("\u2503");
+    public static final String HEART = ChatColor.DARK_RED + StringEscapeUtils.unescapeJava("\u2764");
+    public static final String LEFT_ARROW = StringEscapeUtils.unescapeJava("\u00ab");
+    public static final String RIGHT_ARROW = StringEscapeUtils.unescapeJava("\u00bb");
+
     public static String translate(String in) {
         return ChatColor.translateAlternateColorCodes('&', in);
     }

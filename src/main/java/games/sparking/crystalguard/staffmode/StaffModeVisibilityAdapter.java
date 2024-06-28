@@ -9,7 +9,7 @@ public class StaffModeVisibilityAdapter extends VisibilityAdapter {
 
 
     public StaffModeVisibilityAdapter() {
-        super("Invictus Staff Mode Adapter", 10);
+        super("Staff Mode Adapter", 10);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class StaffModeVisibilityAdapter extends VisibilityAdapter {
         if (targetStaffMode.isEnabled() && !targetStaffMode.isVanished())
             return VisibilityAction.SHOW;
 
-        if (!player.hasPermission("zircon.staff"))
+        if (!player.hasPermission("cw.staff"))
             return VisibilityAction.HIDE;
 
 //        if (staffMode.isEnabled() && ZirconSettings.STAFF_SHOWN.get(player))

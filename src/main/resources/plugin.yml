@@ -1,10 +1,10 @@
-name: CrystalSpec
+name: CrystalGuard
 author: Glamify
 version: '${project.version}'
 main: games.sparking.crystalguard.CrystalGuard
 commands:
   spectator:
-    aliases: spec
+    aliases: [ spectate, spec ]
   staffmode:
     aliases: [ sm, modmode, mm ]
   vanish:
@@ -12,10 +12,12 @@ commands:
   punish:
     aliases: [ p ]
   report:
-    aliases: [ cr, chatreport ]
+    aliases: [ hackerreport, hackereport, hr, crystalguardreport, crystalguard, cgr, cg, chatreport, cr ]
   chatreportview:
-    aliases: [ crv ]
+    aliases: [ viewchatreport, crv ]
   reporthandle:
     aliases: [ rh ]
-  reportdebug:
-    aliases: [ rd ]
+  reportclose:
+    aliases: [ rc ]
+  dev:
+    aliases: [ gm, hub, lobby ]

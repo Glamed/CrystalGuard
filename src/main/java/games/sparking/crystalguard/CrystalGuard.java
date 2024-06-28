@@ -1,13 +1,13 @@
 package games.sparking.crystalguard;
 
-import games.sparking.crystalguard.development.DevelopmentListener;
+import games.sparking.crystalguard.development.DevelopmentListenerCommand;
 import games.sparking.crystalguard.punish.commands.PunishCommand;
 import games.sparking.crystalguard.reports.Report;
 import games.sparking.crystalguard.reports.commands.ChatReportViewCommand;
+import games.sparking.crystalguard.reports.commands.ReportCloseCommand;
 import games.sparking.crystalguard.reports.commands.ReportCommand;
-import games.sparking.crystalguard.reports.commands.ReportDebugCommand;
 import games.sparking.crystalguard.reports.commands.ReportHandleCommand;
-import games.sparking.crystalguard.reports.listeners.ReportMessageListener;
+import games.sparking.crystalguard.reports.listeners.ReportListeners;
 import games.sparking.crystalguard.staffmode.StaffMode;
 import games.sparking.crystalguard.staffmode.StaffModeVisibilityAdapter;
 import games.sparking.crystalguard.staffmode.commands.SpectatorCommand;
@@ -34,26 +34,30 @@ public final class CrystalGuard extends JavaPlugin {
     private boolean staffModeOnJoin = false;
 
     @Getter
-    private static ArrayList<Report> reports = new ArrayList<>();
-
-    @Getter
-    private static HashMap<UUID, String> reportsInProgress = new HashMap<>();
+    private static HashMap<UUID, Report> reportsInProgress = new HashMap<>();
 
     @Getter
     private static CrystalGuard instance;
+
+    @Getter
+    private static MongoService mongoService;
 
     @Override
     public void onEnable() {
         //instance
         instance = this;
 
-        MongoService.connect();
+        mongoService = new MongoService();
+        mongoService.connect();
+
         //Menu listener system
 
         List<Listener> events = new ArrayList<>();
 
         if (Bukkit.getServer().getServerName().equalsIgnoreCase("DEV")) {
-            events.add(new DevelopmentListener());
+            events.add(new DevelopmentListenerCommand());
+            getCommand("dev").setExecutor(new DevelopmentListenerCommand());
+            this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         }
 
         VisibilityService.init();
@@ -66,13 +70,13 @@ public final class CrystalGuard extends JavaPlugin {
             if (!staffMode.isVanished())
                 return true;
 
-            return sender.hasPermission("zircon.staff") || ((Player) sender).canSee(player);
+            return sender.hasPermission("cw.staff") || ((Player) sender).canSee(player);
         });
 
 
         events.add(new StaffModeListener());
         events.add(new MenuListener());
-        events.add(new ReportMessageListener());
+        events.add(new ReportListeners());
 
         events.forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, instance));
 
@@ -82,7 +86,7 @@ public final class CrystalGuard extends JavaPlugin {
         getCommand("punish").setExecutor(new PunishCommand());
         getCommand("report").setExecutor(new ReportCommand());
         getCommand("reporthandle").setExecutor(new ReportHandleCommand());
-        getCommand("reportdebug").setExecutor(new ReportDebugCommand());
+        getCommand("reportclose").setExecutor(new ReportCloseCommand());
         getCommand("chatreportview").setExecutor(new ChatReportViewCommand());
 
     }

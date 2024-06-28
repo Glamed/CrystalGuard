@@ -2,7 +2,7 @@ package games.sparking.crystalguard.reports.menu;
 
 import games.sparking.crystalguard.punish.menu.PunishMenu;
 import games.sparking.crystalguard.reports.MessageCache;
-import games.sparking.crystalguard.reports.ReportManager;
+import games.sparking.crystalguard.reports.ReportService;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.TimeUtils;
 import games.sparking.crystalguard.utils.menu.Button;
@@ -26,8 +26,8 @@ public class ChatReportMenu extends PagedMenu {
 
     @Override
     public String getRawTitle(Player player) {
-        Set<UUID> players = new HashSet<>();
-        for (MessageCache cache : ReportManager.getReportByID(id).getMessages()) {
+        Set<String> players = new HashSet<>();
+        for (MessageCache cache : Objects.requireNonNull(ReportService.getByID(id)).getMessages()) {
             players.addAll(cache.getRecipients());
         }
         return "Chat history for " + players.size() + " " + (players.size() > 1 ? " players" : " player");
@@ -48,7 +48,7 @@ public class ChatReportMenu extends PagedMenu {
         Map<Integer, Button> buttons = new HashMap<>();
         int index = 11;
 
-        List<MessageCache> messages = Objects.requireNonNull(ReportManager.getReportByID(id)).getMessages();
+        List<MessageCache> messages = Objects.requireNonNull(ReportService.getByID(id)).getMessages();
         for (int i = messages.size() - 1; i >= 0; i--) {
             MessageCache mc = messages.get(i);
             buttons.put(index++, new ChatHeads(mc));

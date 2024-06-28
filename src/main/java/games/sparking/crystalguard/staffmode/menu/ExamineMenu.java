@@ -49,10 +49,10 @@ public class ExamineMenu extends Menu {
         buttons.put(40, Button.createPlaceholder());
         buttons.put(41, Button.createPlaceholder());
 
-        int offset = player.hasPermission("invictus.command.clear.other") ? 0 : 1;
+        int offset = player.hasPermission("cw.dev") ? 0 : 1;
         buttons.put(42 + offset, new HealthButton());
         buttons.put(43 + offset, new EffectButton());
-        if (player.hasPermission("invictus.command.clear.other")) {
+        if (player.hasPermission("cw.dev")) {
             buttons.put(44, new ClearButton());
         }
         return buttons;

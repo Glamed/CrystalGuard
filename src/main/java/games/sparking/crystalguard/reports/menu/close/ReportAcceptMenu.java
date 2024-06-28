@@ -1,15 +1,16 @@
-package games.sparking.crystalguard.reports.menu;
+package games.sparking.crystalguard.reports.menu.close;
 
+import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.reports.PunishmentTypes;
-import games.sparking.crystalguard.reports.ReportManager;
+import games.sparking.crystalguard.reports.Report;
+import games.sparking.crystalguard.reports.ReportService;
+import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
 import games.sparking.crystalguard.utils.menu.menu.ConfirmationMenu;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,17 +19,19 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class ReportMenu extends Menu {
+public class ReportAcceptMenu extends Menu {
 
-    Player target;
+    private Report report;
+
+    public ReportAcceptMenu(Report report) {
+        this.report = report;
+    }
 
     @Override
     public String getTitle(Player player) {
-        return "Report " + player.getName();
+        return "Accept Report " + player.getName();
     }
 
     @Override
@@ -40,11 +43,12 @@ public class ReportMenu extends Menu {
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = new HashMap<>();
-        if (target != null) buttons.put(4, new HeadButton(player));
+        Player target = Bukkit.getPlayer(UUID.fromString(report.getSuspectUUID()));
+        buttons.put(4, new HeadButton(target));
 
         int index = 20;
         for (PunishmentTypes types : PunishmentTypes.values()) {
-            buttons.put(index, new TypeButton(types, target));
+            buttons.put(index, new TypeButton(types, report));
             if (++index % 9 == 7) {
                 index += 4;
             }
@@ -69,11 +73,9 @@ public class ReportMenu extends Menu {
     public class TypeButton extends Button {
 
         private PunishmentTypes punishmentTypes;
-        private Player p;
 
-        public TypeButton(PunishmentTypes punishmentTypes, Player p) {
+        public TypeButton(PunishmentTypes punishmentTypes, Report r) {
             this.punishmentTypes = punishmentTypes;
-            this.p = p;
         }
 
         @Override
@@ -86,20 +88,16 @@ public class ReportMenu extends Menu {
 
         @Override
         public void click(Player whoClicked, int slot, ClickType clickType, int hotbarButton) {
-            if (p == null) {
-                new ReportPlayerMenu(punishmentTypes).openMenu(whoClicked);
-                return;
-            }
-
 
             new ConfirmationMenu(
-                    "Report " + p.getName() + "?",
+                    "Accept Report?",
                     b -> {
-                        ReportManager.create(whoClicked, p, punishmentTypes);
+                        ReportService.updateStatus(report, "ACCEPTED", whoClicked.getUniqueId().toString(), punishmentTypes.toString());
+                        CrystalGuard.getReportsInProgress().remove(whoClicked.getPlayer().getUniqueId());
+                        whoClicked.sendMessage(CC.format("&5&l✦ &7Report &d%s&7 has been marked as accepted.", report.getReportID()));
                     }
             ).openMenu(whoClicked);
 
         }
     }
-
 }

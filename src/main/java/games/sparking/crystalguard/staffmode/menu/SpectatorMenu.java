@@ -88,6 +88,10 @@ public class SpectatorMenu extends PagedMenu {
 
 
     public void spectate(Player staff, Player target) {
+        if (target == null) {
+            return;
+        }
+
         staff.getOpenInventory().close();
 
         if (!StaffMode.isStaffMode(staff)) {

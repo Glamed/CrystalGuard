@@ -78,7 +78,6 @@ public class ReportPlayerMenu extends PagedMenu {
                         "Report " + p.getName() + "?",
                         b -> {
                             ReportManager.create(whoClicked, p, type);
-                            whoClicked.sendMessage("banned");
                         }
                 ).openMenu(whoClicked);
             }

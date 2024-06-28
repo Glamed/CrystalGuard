@@ -18,7 +18,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Data
 @RequiredArgsConstructor
@@ -247,26 +246,8 @@ public class StaffMode {
 
         @Override
         public void click(Action action, Block block) {
-            if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-                if (lastHit == null)
-                    return;
+            Bukkit.dispatchCommand(player, "reporthandle");
 
-                if (System.currentTimeMillis() - lastHitTime > TimeUnit.SECONDS.toMillis(15)) {
-                    player.sendMessage(ChatColor.RED + "There has been no fights within the last 15 seconds.");
-                    return;
-                }
-
-                Player target = Bukkit.getPlayer(lastHit);
-                if (target == null) {
-                    player.sendMessage(ChatColor.RED + "This player is no longer online.");
-                    return;
-                }
-
-                Bukkit.dispatchCommand(player, "tp " + target.getName());
-                return;
-            }
-
-            player.getInventory().setItem(6, teleportItem.getItem());
         }
 
         @Override

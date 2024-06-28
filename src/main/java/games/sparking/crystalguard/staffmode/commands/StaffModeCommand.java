@@ -14,7 +14,7 @@ public class StaffModeCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (!player.hasPermission("cw.vanish")) {
+            if (!player.hasPermission("cw.staff")) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5&l✦ &7This command was not recognized&5."));
                 return true;
             }

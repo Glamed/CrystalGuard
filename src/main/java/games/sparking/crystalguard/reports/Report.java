@@ -9,14 +9,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Report {
 
-    private String reportID;
-    private String suspectUUID;
-    private String category;
-    private List<Reason> reasons;
-    private List<MessageCache> messages;
-    private String status;
-    private String handler;
-    private String statusReason;
-    private Long statusTime;
+    private String reportID = null;
+    private String suspectUUID = null;
+    private String category = null;
+    private List<Reason> reasons = null;
+    private List<MessageCache> messages = null;
+    private String status = null;
+    private String handler = null;
+    private String statusReason = null;
+    private Long statusTime = null;
 
 }

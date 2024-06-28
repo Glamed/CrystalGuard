@@ -52,19 +52,19 @@ public class ChatReportPlayerMenu extends PagedMenu {
         Map<Integer, Button> buttons = new HashMap<>();
         int index = 11;
 
-        List<UUID> reportedByPlayers = new ArrayList<>(messageCache.getReportedBy());
-        List<UUID> recipients = messageCache.getRecipients();
+        List<String> reportedByPlayers = new ArrayList<>(messageCache.getReportedBy());
+        List<String> recipients = messageCache.getRecipients();
 
-        for (UUID mc : reportedByPlayers) {
+        for (String mc : reportedByPlayers) {
             if (recipients.contains(mc)) {
-                buttons.put(index++, new RecipientHeads(ChatColor.LIGHT_PURPLE, Bukkit.getOfflinePlayer(mc)));
+                buttons.put(index++, new RecipientHeads(ChatColor.LIGHT_PURPLE, Bukkit.getOfflinePlayer(UUID.fromString(mc))));
             }
         }
 
         // Add other recipients not in reportedByPlayers (if needed)
-        for (UUID mc : recipients) {
+        for (String mc : recipients) {
             if (!reportedByPlayers.contains(mc)) {
-                buttons.put(index++, new RecipientHeads(ChatColor.DARK_PURPLE, Bukkit.getOfflinePlayer(mc)));
+                buttons.put(index++, new RecipientHeads(ChatColor.DARK_PURPLE, Bukkit.getOfflinePlayer(UUID.fromString(mc))));
             }
         }
 

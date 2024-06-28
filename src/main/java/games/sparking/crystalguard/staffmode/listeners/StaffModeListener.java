@@ -1,11 +1,9 @@
 package games.sparking.crystalguard.staffmode.listeners;
 
-import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.staffmode.StaffMode;
 import games.sparking.crystalguard.staffmode.menu.ExamineBlockMenu;
+import games.sparking.crystalguard.utils.CC;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -34,7 +32,6 @@ import java.util.*;
 public class StaffModeListener implements Listener {
 
     private static final Map<UUID, Location> LAST_LOCATION = new HashMap<>();
-    public static final Map<UUID, UUID> JUMP_TO_TARGET = new HashMap<>();
     public static String JUMP_TO_TELEPORT_COMMAND = "tp %s";
 
     private static final List<Material> DENY_INTERACT = Arrays.asList(
@@ -65,30 +62,6 @@ public class StaffModeListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
-        if (player.hasPermission("zircon.command.staffmode") && CrystalGuard.getInstance().isStaffModeOnJoin())
-            StaffMode.get(player).toggleEnabled(false);
-
-        if (JUMP_TO_TARGET.containsKey(player.getUniqueId())) {
-            Player target = Bukkit.getPlayer(JUMP_TO_TARGET.get(player.getUniqueId()));
-            if (target != null)
-                Bukkit.dispatchCommand(player, String.format(JUMP_TO_TELEPORT_COMMAND, target.getName()));
-            JUMP_TO_TARGET.remove(player.getUniqueId());
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onQuit(PlayerQuitEvent event) {
-        StaffMode staffMode = StaffMode.get(event.getPlayer());
-        if (staffMode.isEnabled())
-            staffMode.toggleEnabled(true);
-
-        StaffModeListener.removeLastLocation(event.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!testBuild(event.getPlayer(), true)) event.setCancelled(true);
     }
@@ -105,11 +78,12 @@ public class StaffModeListener implements Listener {
         Block block = event.getClickedBlock();
 
         if (staffMode.isEnabled() && block != null) {
-            if (block.getState() instanceof InventoryHolder holder && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (block.getState() instanceof InventoryHolder && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
+                InventoryHolder holder = (InventoryHolder) block.getState();
                 new ExamineBlockMenu(holder).openMenu(player);
-                player.sendMessage(ChatColor.GOLD + "Opening " + ChatColor.WHITE +
-                        holder.getInventory().getType().getDefaultTitle() + ChatColor.GOLD + " silently.");
+                player.sendMessage(CC.GOLD + "Opening " + CC.WHITE +
+                        holder.getInventory().getType().getDefaultTitle() + CC.GOLD + " silently.");
                 return;
             }
         }
@@ -123,38 +97,39 @@ public class StaffModeListener implements Listener {
             return;
         }
 
-        if (!player.hasPermission("zircon.staffmode.build")) {
+        if (!player.hasPermission("cw.dev")) {
             if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
                     && (player.getItemInHand() != null && DENY_INTERACT.contains(player.getItemInHand().getType()))) {
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.RED + "You cannot do this while in staff mode.");
+                player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
                 return;
             }
         }
 
-        if (staffMode.isVanished() || !player.hasPermission("zircon.staffmode.build")) {
+        if (staffMode.isVanished() || !player.hasPermission("cw.dev")) {
             if (event.getAction() == Action.RIGHT_CLICK_BLOCK
                     && block != null && (block.getState().getData() instanceof Openable
                     || block.getState().getData() instanceof Redstone)) {
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.RED + "You cannot do this while in staff mode.");
+                player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
             }
         }
     }
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        if (!(event.getEntity().getShooter() instanceof Player player))
+        if (!(event.getEntity().getShooter() instanceof Player))
             return;
 
+        Player player = (Player) event.getEntity().getShooter();
         StaffMode staffMode = StaffMode.get(player);
 
         if (!staffMode.isEnabled() && !staffMode.isVanished())
             return;
 
-        if (staffMode.isVanished() || !player.hasPermission("zircon.staffmode.build")) {
+        if (staffMode.isVanished() || !player.hasPermission("cw.staff")) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + "You cannot do this while in staff mode.");
+            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
         }
     }
 
@@ -166,17 +141,19 @@ public class StaffModeListener implements Listener {
 
     @EventHandler
     public void onVehicleDestroy(VehicleDestroyEvent event) {
-        if (!(event.getAttacker() instanceof Player player))
+        if (!(event.getAttacker() instanceof Player))
             return;
 
+        Player player = (Player) event.getAttacker();
         if (!testBuild(player, true)) event.setCancelled(true);
     }
 
     @EventHandler
     public void onVehicleDamage(VehicleDamageEvent event) {
-        if (!(event.getAttacker() instanceof Player player))
+        if (!(event.getAttacker() instanceof Player))
             return;
 
+        Player player = (Player) event.getAttacker();
         if (!testBuild(player, true))
             event.setCancelled(true);
     }
@@ -207,7 +184,7 @@ public class StaffModeListener implements Listener {
         if (!staffMode.isEnabled() && !staffMode.isVanished())
             return;
 
-        if (!player.hasPermission("zircon.staffmode.build")) {
+        if (!player.hasPermission("cw.dev")) {
             event.setCancelled(true);
             return;
         }
@@ -234,27 +211,35 @@ public class StaffModeListener implements Listener {
 
         StaffMode staffMode = StaffMode.get(player);
 
-        if (staffMode.isEnabled() && (staffMode.isVanished() || !player.hasPermission("zircon.staffmode.build"))) {
+        if (staffMode.isEnabled() && (staffMode.isVanished() || !player.hasPermission("cw.staff"))) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "You cannot do this while in staff mode.");
+            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+        }
+
+        if (!event.isCancelled()) {
+            StaffMode.setLastHit(player.getUniqueId());
+            StaffMode.setLastHitTime(System.currentTimeMillis());
         }
 
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player))
             return;
+
+        Player player = (Player) event.getEntity();
 
         StaffMode staffMode = StaffMode.get(player);
         if (staffMode.isEnabled() || staffMode.isVanished()) event.setCancelled(true);
     }
 
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        if (player.hasPermission("zircon.command.back"))
+        if (player.hasPermission("cw.staff"))
             LAST_LOCATION.put(player.getUniqueId(), player.getLocation());
 
         if (StaffMode.isStaffMode(player))
@@ -264,7 +249,7 @@ public class StaffModeListener implements Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         if (event.getCause().name().contains("PEARL") || event.getCause().name().contains("PORTAL")
-                || !event.getPlayer().hasPermission("zircon.command.back"))
+                || !event.getPlayer().hasPermission("cw.staff"))
             return;
 
         LAST_LOCATION.put(event.getPlayer().getUniqueId(), event.getFrom());
@@ -272,9 +257,10 @@ public class StaffModeListener implements Listener {
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player))
             return;
 
+        Player player = (Player) event.getEntity();
         if (StaffMode.isStaffMode(player)) {
             event.setCancelled(true);
             event.setFoodLevel(20);
@@ -288,10 +274,11 @@ public class StaffModeListener implements Listener {
         if (!staffMode.isEnabled() && !staffMode.isVanished())
             return true;
 
-        if (staffMode.isEnabled() && player.hasPermission("zircon.staffmode.build"))
+        if (staffMode.isEnabled() && player.hasPermission("cw.dev"))
             return true;
 
-        if (message) player.sendMessage(ChatColor.RED + "You cannot do this while in staff mode.");
+        if (message)
+            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
         return false;
     }
 
