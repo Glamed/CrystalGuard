@@ -6,12 +6,15 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.reports.Report;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+
+import java.util.Objects;
 
 @Getter
 @RequiredArgsConstructor
@@ -30,7 +33,7 @@ public class MongoService {
 
         // Build the MongoClientSettings with the combined codec registry
         MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("mongodb+srv://Glamify:KzoWEEkHMKGnKRCR@cluster0.64h54dc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"))
+                .applyConnectionString(new ConnectionString(Objects.requireNonNull(CrystalGuard.getInstance().getConfig().getString("mongo.connection"))))
                 .codecRegistry(combinedCodecRegistry)
                 .build();
 

@@ -48,6 +48,8 @@ public final class CrystalGuard extends JavaPlugin {
         //instance
         instance = this;
 
+        registerConfig();
+
         mongoService = new MongoService();
         mongoService.connect();
 
@@ -73,6 +75,12 @@ public final class CrystalGuard extends JavaPlugin {
         registerEvents();
 
     }
+
+    public void registerConfig() {
+        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+    }
+
 
     public void registerCommands() {
         Map<String, CommandExecutor> commands = new HashMap<>();
