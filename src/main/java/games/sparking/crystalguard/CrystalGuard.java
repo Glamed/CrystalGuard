@@ -19,14 +19,12 @@ import games.sparking.crystalguard.utils.mongo.MongoService;
 import games.sparking.crystalguard.visibility.VisibilityService;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public final class CrystalGuard extends JavaPlugin {
 
@@ -42,6 +40,9 @@ public final class CrystalGuard extends JavaPlugin {
     @Getter
     private static MongoService mongoService;
 
+    @Getter
+    private static boolean devMode = true;
+
     @Override
     public void onEnable() {
         //instance
@@ -52,13 +53,8 @@ public final class CrystalGuard extends JavaPlugin {
 
         //Menu listener system
 
-        List<Listener> events = new ArrayList<>();
 
-        if (Bukkit.getServer().getServerName().equalsIgnoreCase("DEV")) {
-            events.add(new DevelopmentListenerCommand());
-            getCommand("dev").setExecutor(new DevelopmentListenerCommand());
-            this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        }
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         VisibilityService.init();
         VisibilityService.registerVisibilityAdapter(new StaffModeVisibilityAdapter());
@@ -70,25 +66,45 @@ public final class CrystalGuard extends JavaPlugin {
             if (!staffMode.isVanished())
                 return true;
 
-            return sender.hasPermission("cw.staff") || ((Player) sender).canSee(player);
+            return sender.hasPermission("cg.staff") || ((Player) sender).canSee(player);
         });
 
+        registerCommands();
+        registerEvents();
+
+    }
+
+    public void registerCommands() {
+        Map<String, CommandExecutor> commands = new HashMap<>();
+
+        commands.put("spectator", new SpectatorCommand());
+        commands.put("staffmode", new StaffModeCommand());
+        commands.put("vanish", new VanishCommand());
+        commands.put("punish", new PunishCommand());
+        commands.put("report", new ReportCommand());
+        commands.put("reporthandle", new ReportHandleCommand());
+        commands.put("reportclose", new ReportCloseCommand());
+        commands.put("chatreportview", new ChatReportViewCommand());
+
+        if (devMode) {
+            commands.put("dev", new DevelopmentListenerCommand());
+        }
+
+        commands.forEach((key, value) -> Objects.requireNonNull(getCommand(key)).setExecutor(value));
+    }
+
+    public void registerEvents() {
+        List<Listener> events = new ArrayList<>();
 
         events.add(new StaffModeListener());
         events.add(new MenuListener());
         events.add(new ReportListeners());
 
+        if (devMode) {
+            events.add(new DevelopmentListenerCommand());
+        }
+
         events.forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, instance));
-
-        getCommand("spectator").setExecutor(new SpectatorCommand());
-        getCommand("staffmode").setExecutor(new StaffModeCommand());
-        getCommand("vanish").setExecutor(new VanishCommand());
-        getCommand("punish").setExecutor(new PunishCommand());
-        getCommand("report").setExecutor(new ReportCommand());
-        getCommand("reporthandle").setExecutor(new ReportHandleCommand());
-        getCommand("reportclose").setExecutor(new ReportCloseCommand());
-        getCommand("chatreportview").setExecutor(new ChatReportViewCommand());
-
     }
 
     @Override

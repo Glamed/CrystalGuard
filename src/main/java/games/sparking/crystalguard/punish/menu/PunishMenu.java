@@ -59,7 +59,7 @@ public class PunishMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD, 3)
                     .setSkullOwner(p.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Punish &d" + p.getName()))
                     .build();
@@ -68,7 +68,7 @@ public class PunishMenu extends Menu {
 
     public class TypeButton extends Button {
 
-        private PunishmentTypes punishmentTypes;
+        private final PunishmentTypes punishmentTypes;
         private Player p = null;
 
         public TypeButton(PunishmentTypes punishmentTypes) {

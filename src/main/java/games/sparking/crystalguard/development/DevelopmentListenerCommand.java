@@ -22,7 +22,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.concurrent.TimeUnit;
@@ -34,14 +33,7 @@ public class DevelopmentListenerCommand implements Listener, CommandExecutor {
             .concurrencyLevel(4)
             .expireAfterWrite(3, TimeUnit.MINUTES)
             .build();
-
-
-    @EventHandler
-    public void onPing(ServerListPingEvent event) {
-        event.setMotd(ChatColor.translateAlternateColorCodes('&', "                 &d&l✦ &C&lCRYSTAL WARS &d&l✦ \n              &7" + "Development Server"));
-        event.setMaxPlayers(Bukkit.getOnlinePlayers().size() + 1);
-    }
-
+    
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
         String host = event.getHostname().split("\\.")[0].toLowerCase();
