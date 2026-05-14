@@ -79,7 +79,7 @@ public class ChatReportPlayerMenu extends PagedMenu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(offlinePlayer.getName())
                     .setDisplayName(color + offlinePlayer.getName())
                     .build();

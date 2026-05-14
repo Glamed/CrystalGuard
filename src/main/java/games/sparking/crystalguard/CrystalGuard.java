@@ -1,12 +1,10 @@
 package games.sparking.crystalguard;
 
+import games.sparking.crystalguard.commands.CommandListener;
 import games.sparking.crystalguard.development.DevelopmentListenerCommand;
 import games.sparking.crystalguard.punish.commands.PunishCommand;
 import games.sparking.crystalguard.reports.Report;
-import games.sparking.crystalguard.reports.commands.ChatReportViewCommand;
-import games.sparking.crystalguard.reports.commands.ReportCloseCommand;
-import games.sparking.crystalguard.reports.commands.ReportCommand;
-import games.sparking.crystalguard.reports.commands.ReportHandleCommand;
+import games.sparking.crystalguard.reports.commands.*;
 import games.sparking.crystalguard.reports.listeners.ReportListeners;
 import games.sparking.crystalguard.staffmode.StaffMode;
 import games.sparking.crystalguard.staffmode.StaffModeVisibilityAdapter;
@@ -41,7 +39,7 @@ public final class CrystalGuard extends JavaPlugin {
     private static MongoService mongoService;
 
     @Getter
-    private static boolean devMode = true;
+    private static boolean devMode = false;
 
     @Override
     public void onEnable() {
@@ -93,6 +91,7 @@ public final class CrystalGuard extends JavaPlugin {
         commands.put("reporthandle", new ReportHandleCommand());
         commands.put("reportclose", new ReportCloseCommand());
         commands.put("chatreportview", new ChatReportViewCommand());
+        commands.put("ReportDebug", new ReportDebugCommand());
 
         if (devMode) {
             commands.put("dev", new DevelopmentListenerCommand());
@@ -107,6 +106,7 @@ public final class CrystalGuard extends JavaPlugin {
         events.add(new StaffModeListener());
         events.add(new MenuListener());
         events.add(new ReportListeners());
+        events.add(new CommandListener());
 
         if (devMode) {
             events.add(new DevelopmentListenerCommand());

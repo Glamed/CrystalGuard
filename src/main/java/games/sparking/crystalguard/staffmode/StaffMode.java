@@ -1,21 +1,28 @@
 package games.sparking.crystalguard.staffmode;
 
+import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.staffmode.menu.ExamineMenu;
 import games.sparking.crystalguard.staffmode.menu.OnlineStaffMenu;
-import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.hotbaritem.HotbarItem;
+import games.sparking.crystalguard.utils.messages.CC;
 import games.sparking.crystalguard.visibility.VisibilityService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
@@ -31,15 +38,15 @@ public class StaffMode {
             .setDisplayName(ChatColor.DARK_RED + "Examine Inventory")
             .build();
 
-    public static final ItemStack CARPET = new ItemBuilder(Material.CARPET, DyeColor.ORANGE.getWoolData())
+    public static final ItemStack CARPET = new ItemBuilder(Material.ORANGE_CARPET)
             .setDisplayName(" ")
             .build();
 
-    public static final ItemStack AXE = new ItemBuilder(Material.WOOD_AXE)
+    public static final ItemStack AXE = new ItemBuilder(Material.WOODEN_AXE)
             .setDisplayName(ChatColor.DARK_RED + "World Edit")
             .build();
 
-    public static final ItemStack RANDOM_TP = new ItemBuilder(Material.NETHER_BRICK_ITEM)
+    public static final ItemStack RANDOM_TP = new ItemBuilder(Material.NETHER_STAR)
             .setDisplayName(ChatColor.DARK_RED + "Random Teleport")
             .build();
 
@@ -47,18 +54,18 @@ public class StaffMode {
             .setDisplayName(ChatColor.DARK_RED + "Handle Report")
             .build();
 
-    public static final ItemStack VANISH_ON = new ItemBuilder(Material.INK_SACK, DyeColor.LIME.getDyeData())
-            .setDisplayName(ChatColor.DARK_RED + "Become Invisible")
+    public static final ItemStack VANISH_ON = new ItemBuilder(Material.LIME_DYE)
+            .setDisplayName(ChatColor.GREEN + "Vanished Enabled - Click to unvanish")
             .build();
 
-    public static final ItemStack VANISH_OFF = new ItemBuilder(Material.INK_SACK, DyeColor.GRAY.getDyeData())
-            .setDisplayName(ChatColor.DARK_RED + "Become Visible")
+    public static final ItemStack VANISH_OFF = new ItemBuilder(Material.GRAY_DYE)
+            .setDisplayName(ChatColor.DARK_RED + "Vanished Disabled - Click to vanish")
             .build();
 
     @Getter
     private static final List<UUID> openInventories = new ArrayList<>();
 
-    private static final HashSet<Byte> TRANSPARENT = new HashSet<>();
+    private static final HashSet<Material> TRANSPARENT = new HashSet<>();
 
     private static final Map<UUID, StaffMode> STAFF_MODE_MAP = new HashMap<>();
 
@@ -160,23 +167,28 @@ public class StaffMode {
 
         this.vanished = !vanished;
 
-        if (!vanished) {
-            player.spigot().setCollidesWithEntities(true);
-            VisibilityService.update(player);
-        } else {
-            player.spigot().setCollidesWithEntities(false);
-            VisibilityService.update(player);
-        }
-
         if (this.enabled) {
             if (this.vanishItem == null) {
                 this.vanishItem = new VanishItem(player);
             }
+            assert player != null;
             player.getInventory().setItem(8, this.vanishItem.getItem());
         }
 
-        if (!silent)
+        if (vanished) {
+            VisibilityService.update(player);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 0, false, false));
+            player.setMetadata("vanished", new FixedMetadataValue(CrystalGuard.getInstance(), "true"));
+        } else {
+            VisibilityService.update(player);
+            player.removePotionEffect(PotionEffectType.INVISIBILITY);
+            player.removeMetadata("vanished", CrystalGuard.getInstance());
+        }
+
+        if (!silent) {
+            assert player != null;
             player.sendMessage(ChatColor.GOLD + "Vanish: " + CC.colorBoolean(vanished, true));
+        }
     }
 
     public class InspectItem extends HotbarItem {
@@ -264,7 +276,7 @@ public class StaffMode {
         @Override
         public ItemStack getItem() {
 
-            return vanished ? VANISH_OFF : VANISH_ON;
+            return vanished ? VANISH_ON : VANISH_OFF;
         }
 
         @Override
@@ -289,7 +301,7 @@ public class StaffMode {
 
         @Override
         public ItemStack getItem() {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setDisplayName(ChatColor.DARK_RED + "Online Staff")
                     .setSkullOwner(player.getName())
                     .build();
@@ -311,7 +323,7 @@ public class StaffMode {
     static {
         for (Material material : Material.values()) {
             if (material.isTransparent())
-                TRANSPARENT.add((byte) material.getId());
+                TRANSPARENT.add(material);
         }
     }
 }

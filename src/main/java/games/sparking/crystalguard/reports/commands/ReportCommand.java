@@ -1,6 +1,6 @@
 package games.sparking.crystalguard.reports.commands;
 
-import games.sparking.crystalguard.reports.PunishmentTypes;
+import games.sparking.crystalguard.reports.ReportCategoryType;
 import games.sparking.crystalguard.reports.ReportManager;
 import games.sparking.crystalguard.reports.menu.ReportMenu;
 import games.sparking.crystalguard.reports.menu.ReportPlayerMenu;
@@ -21,18 +21,18 @@ public class ReportCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        PunishmentTypes punishmentTypes = getPunishmentType(alias);
+        ReportCategoryType reportCategoryType = getPunishmentType(alias);
 
         if (args.length == 0) {
-            handleNoArgs(punishmentTypes, player);
+            handleNoArgs(reportCategoryType, player);
         } else {
-            handleWithArgs(punishmentTypes, player, args[0]);
+            handleWithArgs(reportCategoryType, player, args[0]);
         }
 
         return true;
     }
 
-    private PunishmentTypes getPunishmentType(String alias) {
+    private ReportCategoryType getPunishmentType(String alias) {
         if (alias.equalsIgnoreCase("hr") ||
                 alias.equalsIgnoreCase("hackerreport") ||
                 alias.equalsIgnoreCase("hackereport") ||
@@ -40,27 +40,27 @@ public class ReportCommand implements CommandExecutor {
                 alias.equalsIgnoreCase("crystalguard") ||
                 alias.equalsIgnoreCase("cgr") ||
                 alias.equalsIgnoreCase("cg")) {
-            return PunishmentTypes.CHEATING;
+            return ReportCategoryType.CHEATING;
         } else if (alias.equalsIgnoreCase("chatreport") ||
                 alias.equalsIgnoreCase("cr")) {
-            return PunishmentTypes.CHAT_ABUSE;
+            return ReportCategoryType.CHAT_ABUSE;
         } else {
             return null;
         }
     }
 
-    private void handleNoArgs(PunishmentTypes punishmentTypes, Player player) {
-        if (punishmentTypes == null) {
+    private void handleNoArgs(ReportCategoryType reportCategoryType, Player player) {
+        if (reportCategoryType == null) {
             new ReportMenu().openMenu(player);
         } else {
-            new ReportPlayerMenu(punishmentTypes).openMenu(player);
+            new ReportPlayerMenu(reportCategoryType).openMenu(player);
         }
     }
 
-    private void handleWithArgs(PunishmentTypes punishmentTypes, Player player, String targetName) {
+    private void handleWithArgs(ReportCategoryType reportCategoryType, Player player, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
 
-        if (punishmentTypes == null) {
+        if (reportCategoryType == null) {
             if (target == null) {
                 new ReportMenu().openMenu(player);
             } else {
@@ -68,13 +68,13 @@ public class ReportCommand implements CommandExecutor {
             }
         } else {
             if (target == null) {
-                new ReportPlayerMenu(punishmentTypes).openMenu(player);
+                new ReportPlayerMenu(reportCategoryType).openMenu(player);
             } else {
                 new ConfirmationMenu(
                         "Report " + target.getName() + "?",
                         confirmed -> {
                             if (confirmed) {
-                                ReportManager.create(player, target, punishmentTypes);
+                                ReportManager.create(player, target, reportCategoryType);
                             }
                         }
                 ).openMenu(player);

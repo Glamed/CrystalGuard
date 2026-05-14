@@ -3,7 +3,6 @@ package games.sparking.crystalguard.utils.menu.page;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -23,12 +22,12 @@ public class PageButton extends Button {
     @Override
     public ItemStack getItem(Player player) {
         if (this.hasNext(player)) {
-            return new ItemBuilder(Material.CARPET, DyeColor.LIME.getWoolData())
+            return new ItemBuilder(Material.LIME_CARPET)
                     .setDisplayName(mod > 0 ? ChatColor.GREEN.toString() + ChatColor.BOLD + "Next Page"
                             : ChatColor.GREEN.toString() + ChatColor.BOLD + "Previous Page")
                     .build();
         } else {
-            return new ItemBuilder(Material.CARPET, DyeColor.GRAY.getWoolData())
+            return new ItemBuilder(Material.GRAY_CARPET)
                     .setDisplayName(mod > 0 ? ChatColor.GRAY.toString() + ChatColor.BOLD + "Next Page"
                             : ChatColor.GRAY.toString() + ChatColor.BOLD + "Previous Page")
                     //.setLore(CC.RED + "You are already on", CC.RED + "the " + (mod > 0 ? "Last " : "First ") + "Page")

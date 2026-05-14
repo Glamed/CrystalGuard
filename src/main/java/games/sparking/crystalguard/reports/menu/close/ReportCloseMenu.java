@@ -5,7 +5,6 @@ import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -54,12 +53,12 @@ public class ReportCloseMenu extends Menu {
         @Override
         public ItemStack getItem(Player player) {
             if (color) {
-                return new ItemBuilder(Material.INK_SACK, DyeColor.GREEN.getDyeData())
+                return new ItemBuilder(Material.GREEN_DYE)
                         .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lAccept Report"))
                         .setLore(ChatColor.translateAlternateColorCodes('&', "&7&oYou have probable cause to believe a rule has been violated."))
                         .build();
             } else {
-                return new ItemBuilder(Material.INK_SACK, DyeColor.RED.getDyeData())
+                return new ItemBuilder(Material.RED_DYE)
                         .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c&lReject Report"))
                         .setLore(ChatColor.translateAlternateColorCodes('&', "&7&oYou do not have probable cause to believe a rule has been violated."))
                         .build();

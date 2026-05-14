@@ -67,7 +67,7 @@ public class ExamineBlockMenu extends Menu {
             BrewingStand brewingStand = (BrewingStand) block;
             double percentage = ((brewingStand.getBrewingTime() / 20.0D) / 9.0D) * 100;
 
-            ItemStack item = new ItemBuilder(Material.BREWING_STAND_ITEM)
+            ItemStack item = new ItemBuilder(Material.BREWING_STAND)
                     .setLore(ChatColor.GOLD + "Progress: " + ChatColor.WHITE + (percentage > 100 ? 100 : Math.round(percentage)) +
                             "%")
                     .build();

@@ -1,14 +1,14 @@
 package games.sparking.crystalguard.reports.menu.close;
 
 import games.sparking.crystalguard.CrystalGuard;
-import games.sparking.crystalguard.reports.PunishmentTypes;
 import games.sparking.crystalguard.reports.Report;
+import games.sparking.crystalguard.reports.ReportCategoryType;
 import games.sparking.crystalguard.reports.ReportService;
-import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
 import games.sparking.crystalguard.utils.menu.menu.ConfirmationMenu;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class ReportAcceptMenu extends Menu {
 
-    private Report report;
+    private final Report report;
 
     public ReportAcceptMenu(Report report) {
         this.report = report;
@@ -47,7 +47,7 @@ public class ReportAcceptMenu extends Menu {
         buttons.put(4, new HeadButton(target));
 
         int index = 20;
-        for (PunishmentTypes types : PunishmentTypes.values()) {
+        for (ReportCategoryType types : ReportCategoryType.values()) {
             buttons.put(index, new TypeButton(types, report));
             if (++index % 9 == 7) {
                 index += 4;
@@ -63,7 +63,7 @@ public class ReportAcceptMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(p.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Report &d" + p.getName()))
                     .build();
@@ -72,17 +72,17 @@ public class ReportAcceptMenu extends Menu {
 
     public class TypeButton extends Button {
 
-        private PunishmentTypes punishmentTypes;
+        private ReportCategoryType reportCategoryType;
 
-        public TypeButton(PunishmentTypes punishmentTypes, Report r) {
-            this.punishmentTypes = punishmentTypes;
+        public TypeButton(ReportCategoryType reportCategoryType, Report r) {
+            this.reportCategoryType = reportCategoryType;
         }
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(punishmentTypes.getMaterial())
-                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l" + punishmentTypes.getName()))
-                    .setLore(ChatColor.translateAlternateColorCodes('&', "&7&o" + punishmentTypes.getDesc()))
+            return new ItemBuilder(reportCategoryType.getMaterial())
+                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l" + reportCategoryType.getName()))
+                    .setLore(ChatColor.translateAlternateColorCodes('&', "&7&o" + reportCategoryType.getDesc()))
                     .build();
         }
 
@@ -92,7 +92,7 @@ public class ReportAcceptMenu extends Menu {
             new ConfirmationMenu(
                     "Accept Report?",
                     b -> {
-                        ReportService.updateStatus(report, "ACCEPTED", whoClicked.getUniqueId().toString(), punishmentTypes.toString());
+                        ReportService.updateStatus(report, "ACCEPTED", whoClicked.getUniqueId().toString(), reportCategoryType.toString());
                         CrystalGuard.getReportsInProgress().remove(whoClicked.getPlayer().getUniqueId());
                         whoClicked.sendMessage(CC.format("&5&l✦ &7Report &d%s&7 has been marked as accepted.", report.getReportID()));
                     }

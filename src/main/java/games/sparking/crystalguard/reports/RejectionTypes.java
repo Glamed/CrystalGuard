@@ -9,7 +9,7 @@ import org.bukkit.Material;
 public enum RejectionTypes {
 
     INSUFFICIENT_EVIDENCE(false, Material.BOOK, "Insufficient Evidence", "Lacking probable cause to issue a punishment"),
-    ABUSIVE(true, Material.REDSTONE_BLOCK, "Abusive", "The reporter(s) were abusing the report system");
+    ABUSE(true, Material.REDSTONE_BLOCK, "Abusive", "The reporter(s) were abusing the report system");
 
     final boolean abusive;
     final Material material;

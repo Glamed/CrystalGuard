@@ -2,6 +2,7 @@ name: CrystalGuard
 author: Glamify
 version: '${project.version}'
 main: games.sparking.crystalguard.CrystalGuard
+api-version: 1.21.8
 commands:
   spectator:
     aliases: [ spectate, spec ]
@@ -18,6 +19,8 @@ commands:
   reporthandle:
     aliases: [ rh ]
   reportclose:
+    aliases: [ rc ]
+  reportdebug:
     aliases: [ rc ]
   dev:
     aliases: [ gm, hub, lobby ]

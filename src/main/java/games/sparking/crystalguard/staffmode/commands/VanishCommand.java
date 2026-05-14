@@ -1,7 +1,7 @@
 package games.sparking.crystalguard.staffmode.commands;
 
 import games.sparking.crystalguard.staffmode.StaffMode;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

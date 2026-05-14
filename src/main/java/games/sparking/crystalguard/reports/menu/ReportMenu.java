@@ -1,6 +1,6 @@
 package games.sparking.crystalguard.reports.menu;
 
-import games.sparking.crystalguard.reports.PunishmentTypes;
+import games.sparking.crystalguard.reports.ReportCategoryType;
 import games.sparking.crystalguard.reports.ReportManager;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
@@ -33,17 +33,24 @@ public class ReportMenu extends Menu {
 
     @Override
     public int getSize() {
-        return 36;
+        if (target != null) {
+            return 36;
+        }
+        return 27;
     }
 
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = new HashMap<>();
-        if (target != null) buttons.put(4, new HeadButton(player));
+        int index = 11;
 
-        int index = 20;
-        for (PunishmentTypes types : PunishmentTypes.values()) {
+        if (target != null) {
+            buttons.put(4, new HeadButton(player));
+            index = 20;
+        }
+
+        for (ReportCategoryType types : ReportCategoryType.values()) {
             buttons.put(index, new TypeButton(types, target));
             if (++index % 9 == 7) {
                 index += 4;
@@ -59,7 +66,7 @@ public class ReportMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(p.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Report &d" + p.getName()))
                     .build();
@@ -68,26 +75,26 @@ public class ReportMenu extends Menu {
 
     public class TypeButton extends Button {
 
-        private PunishmentTypes punishmentTypes;
+        private ReportCategoryType reportCategoryType;
         private Player p;
 
-        public TypeButton(PunishmentTypes punishmentTypes, Player p) {
-            this.punishmentTypes = punishmentTypes;
+        public TypeButton(ReportCategoryType reportCategoryType, Player p) {
+            this.reportCategoryType = reportCategoryType;
             this.p = p;
         }
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(punishmentTypes.getMaterial())
-                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l" + punishmentTypes.getName()))
-                    .setLore(ChatColor.translateAlternateColorCodes('&', "&7&o" + punishmentTypes.getDesc()))
+            return new ItemBuilder(reportCategoryType.getMaterial())
+                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l" + reportCategoryType.getName()))
+                    .setLore(ChatColor.translateAlternateColorCodes('&', "&7&o" + reportCategoryType.getDesc()))
                     .build();
         }
 
         @Override
         public void click(Player whoClicked, int slot, ClickType clickType, int hotbarButton) {
             if (p == null) {
-                new ReportPlayerMenu(punishmentTypes).openMenu(whoClicked);
+                new ReportPlayerMenu(reportCategoryType).openMenu(whoClicked);
                 return;
             }
 
@@ -95,7 +102,7 @@ public class ReportMenu extends Menu {
             new ConfirmationMenu(
                     "Report " + p.getName() + "?",
                     b -> {
-                        ReportManager.create(whoClicked, p, punishmentTypes);
+                        ReportManager.create(whoClicked, p, reportCategoryType);
                     }
             ).openMenu(whoClicked);
 

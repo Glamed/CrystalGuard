@@ -1,5 +1,6 @@
 package games.sparking.crystalguard.utils;
 
+import games.sparking.crystalguard.utils.messages.CC;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.command.CommandSender;
@@ -44,23 +45,17 @@ public class ChatMessage {
     }
 
     public ChatMessage format(ChatColor chatColor) {
-        switch (chatColor) {
-            case BOLD:
-                this.getLastAdded().setBold(true);
-                break;
-            case ITALIC:
-                this.getLastAdded().setItalic(true);
-                break;
-            case STRIKETHROUGH:
-                this.getLastAdded().setStrikethrough(true);
-                break;
-            case UNDERLINE:
-                this.getLastAdded().setUnderlined(true);
-                break;
-            case MAGIC:
-                this.getLastAdded().setObfuscated(true);
-                break;
-        }
+        if (chatColor == null) return this;
+
+        TextComponent last = getLastAdded();
+        if (last == null) return this;
+
+        if (chatColor == ChatColor.BOLD) last.setBold(true);
+        else if (chatColor == ChatColor.ITALIC) last.setItalic(true);
+        else if (chatColor == ChatColor.UNDERLINE) last.setUnderlined(true);
+        else if (chatColor == ChatColor.STRIKETHROUGH) last.setStrikethrough(true);
+        else if (chatColor == ChatColor.MAGIC) last.setObfuscated(true);
+
         return this;
     }
 
@@ -161,7 +156,7 @@ public class ChatMessage {
                 if (format == null) {
                     continue;
                 }
-                if (builder.length() > 0) {
+                if (!builder.isEmpty()) {
                     TextComponent old = component;
                     component = new TextComponent(old);
                     old.setText(builder.toString());
@@ -206,7 +201,7 @@ public class ChatMessage {
             }
             if (matcher.region(i, pos).find()) { //Web link handling
 
-                if (builder.length() > 0) {
+                if (!builder.isEmpty()) {
                     TextComponent old = component;
                     component = new TextComponent(old);
                     old.setText(builder.toString());

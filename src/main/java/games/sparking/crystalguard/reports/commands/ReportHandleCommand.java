@@ -1,13 +1,10 @@
 package games.sparking.crystalguard.reports.commands;
 
 import games.sparking.crystalguard.CrystalGuard;
-import games.sparking.crystalguard.reports.PunishmentTypes;
-import games.sparking.crystalguard.reports.Reason;
-import games.sparking.crystalguard.reports.Report;
-import games.sparking.crystalguard.reports.ReportService;
+import games.sparking.crystalguard.reports.*;
 import games.sparking.crystalguard.staffmode.menu.SpectatorMenu;
-import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ChatMessage;
+import games.sparking.crystalguard.utils.messages.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -85,14 +82,37 @@ public class ReportHandleCommand implements CommandExecutor {
     }
 
 
-    private double calculatePriority(Report report) {
+    public double calculatePriority(Report report) {
         double priority = 30;
         //Bukkit.broadcastMessage(report.getReasons().size() + "");
         for (Reason reason : report.getReasons()) {
             //Bukkit.broadcastMessage("69");
             double ageImpact = Math.pow(0.95, reason._getTimeElapsedSinceReport().toMinutes());
             priority += 5 * ageImpact;
-            priority += PunishmentTypes.valueOf(reason.getMessage()).getPriority() * ageImpact;
+            priority += ReportCategoryType.valueOf(reason.getMessage()).getPriority() * ageImpact;
+        }
+
+        for (MessageCache messageCache : report.getMessages()) {
+            int mlFlag = messageCache.getMLFlagLevel();
+            switch (mlFlag) {
+                case 1:
+                    priority += 1;
+                    break;
+                case 2:
+                    priority += 2;
+                    break;
+                case 3:
+                    priority += 3.5;
+                    break;
+                case 4:
+                    priority += 5;
+                    break;
+                case 5:
+                    priority += 7;
+                    break;
+                default:
+                    break;
+            }
         }
 
         return priority;
@@ -167,7 +187,7 @@ public class ReportHandleCommand implements CommandExecutor {
         player.sendMessage(CC.format(" &7" + report.getReasons().size() + " total report" + (report.getReasons().size() > 1 ? "s" : "") + "&8: "));
         int size = 1;
         for (Reason reason : report.getReasons()) {
-            player.sendMessage(CC.format("  &8-&7 " + size++ + "&8: &5" + Bukkit.getOfflinePlayer(UUID.fromString(reason.getUuid())).getName() + ": &d" + PunishmentTypes.valueOf(reason.getMessage()).getName()));
+            player.sendMessage(CC.format("  &8-&7 " + size++ + "&8: &5" + Bukkit.getOfflinePlayer(UUID.fromString(reason.getUuid())).getName() + ": &d" + ReportCategoryType.valueOf(reason.getMessage()).getName()));
         }
 
 //        ChatMessage message = new ChatMessage(" ");
@@ -189,7 +209,7 @@ public class ReportHandleCommand implements CommandExecutor {
 
         ChatMessage closeReport = new ChatMessage("")
                 .runCommand("/reportclose")
-                .hoverText(CC.GRAY + "Click here to close this report");
+                .hoverText(CC.MINECRAFT_GRAY + "Click here to close this report");
         closeReport.add("[").color(ChatColor.DARK_GRAY);
         closeReport.add("✖").color(ChatColor.RED);
         closeReport.add("]").color(ChatColor.DARK_GRAY);
@@ -199,7 +219,7 @@ public class ReportHandleCommand implements CommandExecutor {
 
         ChatMessage spectateReport = new ChatMessage("")
                 .runCommand("/spectate " + target.getName())
-                .hoverText(CC.GRAY + "Click here to spectate " + target.getName());
+                .hoverText(CC.MINECRAFT_GRAY + "Click here to spectate " + target.getName());
         spectateReport.add("[").color(ChatColor.DARK_GRAY);
         spectateReport.add("➡").color(ChatColor.LIGHT_PURPLE);
         spectateReport.add("]").color(ChatColor.DARK_GRAY);
@@ -209,7 +229,7 @@ public class ReportHandleCommand implements CommandExecutor {
 
         ChatMessage viewChatReport = new ChatMessage("")
                 .runCommand("/viewchatreport " + report.getReportID())
-                .hoverText(CC.GRAY + "Click here to view chat history");
+                .hoverText(CC.MINECRAFT_GRAY + "Click here to view chat history");
         viewChatReport.add("[").color(ChatColor.DARK_GRAY);
         viewChatReport.add("i").color(ChatColor.AQUA).format(ChatColor.BOLD);
         viewChatReport.add("]").color(ChatColor.DARK_GRAY);

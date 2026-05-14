@@ -6,7 +6,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.staffmode.StaffMode;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +33,7 @@ public class DevelopmentListenerCommand implements Listener, CommandExecutor {
             .concurrencyLevel(4)
             .expireAfterWrite(3, TimeUnit.MINUTES)
             .build();
-    
+
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
         String host = event.getHostname().split("\\.")[0].toLowerCase();

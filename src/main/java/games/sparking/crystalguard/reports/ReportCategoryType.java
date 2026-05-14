@@ -6,7 +6,7 @@ import org.bukkit.Material;
 
 @AllArgsConstructor
 @Getter
-public enum PunishmentTypes {
+public enum ReportCategoryType {
 
     CHAT_ABUSE(ReportTypes.CHAT, 2, Material.BOOK, "Chat Abuse", "Swearing, discrimination, bullying, etc"),
     CHEATING(ReportTypes.GAMEPLAY, 3, Material.IRON_SWORD, "Cheating", "Well... uh hacking, cross teaming, idk man figure it out"),

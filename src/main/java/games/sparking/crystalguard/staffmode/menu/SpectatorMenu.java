@@ -63,7 +63,7 @@ public class SpectatorMenu extends PagedMenu {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&eLeft click to teleport (vanished)"));
             lore.add(ChatColor.translateAlternateColorCodes('&', "&eRight click to teleport (unvanished)"));
 
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(p.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l" + p.getName()))
                     .setLore(lore)

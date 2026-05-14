@@ -3,7 +3,7 @@ package games.sparking.crystalguard.reports.commands;
 import games.sparking.crystalguard.reports.Report;
 import games.sparking.crystalguard.reports.ReportService;
 import games.sparking.crystalguard.reports.menu.ChatReportMenu;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

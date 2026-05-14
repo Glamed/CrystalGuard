@@ -1,11 +1,11 @@
 package games.sparking.crystalguard.staffmode.menu;
 
 import games.sparking.crystalguard.staffmode.StaffMode;
-import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.Rank;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -69,7 +69,7 @@ public class OnlineStaffMenu extends Menu {
             lore.add(ChatColor.LIGHT_PURPLE + "Vanished: " + CC.colorBoolean(staffMode.isVanished(), "Yes", "No"));
             lore.add(" ");
             lore.add(ChatColor.YELLOW + "Click to teleport");
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(profile.getName())
                     .setDisplayName(CC.format(rank.getPrefix() + "&7 " + profile.getName()))
                     .setLore(lore).build();

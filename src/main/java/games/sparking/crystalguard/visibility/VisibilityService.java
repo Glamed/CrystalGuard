@@ -1,18 +1,19 @@
 package games.sparking.crystalguard.visibility;
 
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTeams;
 import games.sparking.crystalguard.CrystalGuard;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.Getter;
 import lombok.Setter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiFunction;
 
 public class VisibilityService {
@@ -53,10 +54,45 @@ public class VisibilityService {
             action = VISIBILITY_ADAPTERS.get(index++).canSee(player, target);
         }
 
-        if (action == VisibilityAction.HIDE)
+        if (action == VisibilityAction.HIDE) {
             player.hidePlayer(target);
-        else
+        } else {
             player.showPlayer(target);
+        }
+    }
+
+    public static VisibilityAction canSee(Player viewer, Player target) {
+        VisibilityAction action = VisibilityAction.NEUTRAL;
+        int index = 0;
+        while (action == VisibilityAction.NEUTRAL && index < VISIBILITY_ADAPTERS.size()) {
+            action = VISIBILITY_ADAPTERS.get(index++).canSee(viewer, target);
+        }
+        return action;
+    }
+
+
+    public static void teamUpdate(Collection<? extends Player> viewers, Collection<String> playerNames) {
+        String teamName = "staff";
+
+        WrapperPlayServerTeams teamRemovePacket = new WrapperPlayServerTeams(teamName, WrapperPlayServerTeams.TeamMode.REMOVE, (WrapperPlayServerTeams.ScoreBoardTeamInfo) null, List.of());
+        WrapperPlayServerTeams.ScoreBoardTeamInfo teamInfo = new WrapperPlayServerTeams.ScoreBoardTeamInfo(
+                Component.empty(),
+                Component.empty(),
+                Component.empty(),
+                WrapperPlayServerTeams.NameTagVisibility.NEVER,
+                WrapperPlayServerTeams.CollisionRule.ALWAYS,
+                NamedTextColor.WHITE,
+                WrapperPlayServerTeams.OptionData.ALL
+        );
+
+        WrapperPlayServerTeams teamCreatePacket = new WrapperPlayServerTeams(teamName, WrapperPlayServerTeams.TeamMode.CREATE, teamInfo, playerNames);
+        WrapperPlayServerTeams teamAddPacket = new WrapperPlayServerTeams(teamName, WrapperPlayServerTeams.TeamMode.ADD_ENTITIES, teamInfo, playerNames);
+
+        viewers.forEach(viewer -> {
+            PacketEvents.getAPI().getPlayerManager().sendPacket(viewer, teamRemovePacket);
+            PacketEvents.getAPI().getPlayerManager().sendPacket(viewer, teamCreatePacket);
+            PacketEvents.getAPI().getPlayerManager().sendPacket(viewer, teamAddPacket);
+        });
     }
 
     public static List<String> getDebugInfo(Player player, Player target) {

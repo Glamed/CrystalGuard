@@ -6,10 +6,9 @@ import games.sparking.crystalguard.utils.TimeUtils;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -73,7 +72,7 @@ public class ExamineMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.INK_SACK, DyeColor.RED.getDyeData())
+            return new ItemBuilder(Material.RED_DYE)
                     .setDisplayName(ChatColor.GOLD + "Player's Health")
                     .setAmount((int) target.getHealth())
                     .build();
@@ -102,7 +101,7 @@ public class ExamineMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.BOOK_AND_QUILL)
+            return new ItemBuilder(Material.WRITABLE_BOOK)
                     .setDisplayName(ChatColor.GOLD + "Clear Inventory")
                     .build();
         }

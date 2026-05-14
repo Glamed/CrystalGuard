@@ -20,7 +20,7 @@ public class StaffModeVisibilityAdapter extends VisibilityAdapter {
             return VisibilityAction.NEUTRAL;
 
         if (targetStaffMode.isEnabled() && !targetStaffMode.isVanished())
-            return VisibilityAction.SHOW;
+            return VisibilityAction.GHOST;
 
         if (!player.hasPermission("cw.staff"))
             return VisibilityAction.HIDE;

@@ -82,19 +82,18 @@ public abstract class Menu {
 
         }*/
 
-        if (player.getOpenInventory().getTopInventory() != null) {
-            if (previousMenu != null) {
-                previousMenu.setCancelIncomingUpdates(true);
-                if (previousMenu.getUpdateRunnable() != null)
-                    previousMenu.getUpdateRunnable().cancel();
-            }
+        player.getOpenInventory().getTopInventory();
+        if (previousMenu != null) {
+            previousMenu.setCancelIncomingUpdates(true);
+            if (previousMenu.getUpdateRunnable() != null)
+                previousMenu.getUpdateRunnable().cancel();
+        }
 
-            int previousSize = player.getOpenInventory().getTopInventory().getSize();
-            String previousTitle = player.getOpenInventory().getTopInventory().getTitle();
-            if (previousSize == size && previousTitle.equalsIgnoreCase(title)) {
-                inventory = player.getOpenInventory().getTopInventory();
-                update = true;
-            }
+        int previousSize = player.getOpenInventory().getTopInventory().getSize();
+        String previousTitle = player.getOpenInventory().getTitle();
+        if (previousSize == size && previousTitle.equalsIgnoreCase(title)) {
+            inventory = player.getOpenInventory().getTopInventory();
+            update = true;
         }
 
         if (getMenuFiller() != null)

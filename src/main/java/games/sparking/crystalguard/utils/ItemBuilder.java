@@ -5,11 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,16 +19,6 @@ public class ItemBuilder {
 
     public ItemBuilder(Material material) {
         this.itemStack = new ItemStack(material);
-        this.itemMeta = itemStack.getItemMeta();
-    }
-
-    public ItemBuilder(Material material, short subID) {
-        this.itemStack = new ItemStack(material, 1, subID);
-        this.itemMeta = itemStack.getItemMeta();
-    }
-
-    public ItemBuilder(Material material, int subID) {
-        this.itemStack = new ItemStack(material, 1, (short) subID);
         this.itemMeta = itemStack.getItemMeta();
     }
 
@@ -75,8 +61,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setGlowing(boolean glowing) {
-        if (glowing)
-            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.setEnchantmentGlintOverride(glowing);
         return this;
     }
 
@@ -85,8 +70,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setUnbreakable(Boolean unbreakable) {
-        this.itemMeta.spigot().setUnbreakable(unbreakable);
+    public ItemBuilder setUnbreakable(boolean unbreakable) {
+        this.itemMeta.setUnbreakable(unbreakable);
         return this;
     }
 

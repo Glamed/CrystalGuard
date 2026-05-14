@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bukkit.Bukkit;
 
 import java.util.Objects;
 
@@ -31,9 +32,15 @@ public class MongoService {
                 pojoCodecRegistry
         );
 
+        String connectionString = CrystalGuard.getInstance().getConfig().getString("mongo.connectionString");
+        if (connectionString == null) {
+            Bukkit.getLogger().severe("Mongo connection string is missing from config.yml!");
+            return;
+        }
+
         // Build the MongoClientSettings with the combined codec registry
         MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString(Objects.requireNonNull(CrystalGuard.getInstance().getConfig().getString("mongo.connection"))))
+                .applyConnectionString(new ConnectionString(Objects.requireNonNull(CrystalGuard.getInstance().getConfig().getString("mongo.connectionString"))))
                 .codecRegistry(combinedCodecRegistry)
                 .build();
 

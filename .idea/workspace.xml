@@ -5,22 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b41e97c-ca8b-488b-a53f-a754459b5ba8" name="Changes" comment="1.21.8 convert, updated punishment handler">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/commands/CommandListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/InfractionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/menu/PunishActionMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/menu/PunishPlayerMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/messages/MessageType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/messages/Messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/CrystalGuard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/CrystalGuard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/mongo/MongoConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/development/DevelopmentListenerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/development/DevelopmentListenerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishmentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/PunishmentType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/menu/PunishMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/punish/menu/PunishMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/MessageCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/MessageCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/PunishmentTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportCategoryType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/RejectionTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/RejectionTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/ReportManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ChatReportViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ChatReportViewCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportCloseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportCloseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportDebugCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportDebugCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportHandleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/commands/ReportHandleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/listeners/ReportListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/listeners/ReportListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportPlayerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ChatReportPlayerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportPlayerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/ReportPlayerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportAcceptMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportAcceptMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportCloseMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportCloseMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportRejectMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/menu/close/ReportRejectMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffModeVisibilityAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/StaffModeVisibilityAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/SpectatorCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/SpectatorCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/VanishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/commands/VanishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/listeners/StaffModeListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/listeners/StaffModeListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineBlockMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineBlockMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/ExamineMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/OnlineStaffMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/OnlineStaffMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/SpectatorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/staffmode/menu/SpectatorMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/CC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/messages/CC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ChatMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ItemBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ItemBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/BackButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/BackButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/ConfirmationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/buttons/ConfirmationButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/page/PageButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/menu/page/PageButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/mongo/MongoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/mongo/MongoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/visibility/VisibilityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/andre/projects/CrystalGuard" value="2gYw0ZSUFkeW2yNDeJDO1VVgWhY" />
+    </persistenceIdMap>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,6 +94,10 @@
     &quot;accountId&quot;: &quot;7d32d10e-5149-4b22-a4d7-17b99d8583ad&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -62,12 +121,16 @@
     &quot;Maven.Spectator [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Spectator [package].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Spectator package.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Repo/CrystalGuard/src/main/java/games/sparking/crystalguard/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/andre/projects/CrystalGuard/src/main/java/games/sparking/crystalguard&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -76,16 +139,17 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\andre\projects\CrystalGuard\src\main\java\games\sparking\crystalguard" />
       <recent name="D:\Repo\CrystalGuard\src\main\java\games\sparking\crystalguard\utils" />
       <recent name="D:\Repo\CrystalGuard\src\main\java\games\sparking\crystalguard\staffmode\menu" />
       <recent name="D:\Repo\CrystalGuard\src\main\java\games\sparking\crystalguard" />
       <recent name="D:\Repo\Spectator\target" />
-      <recent name="D:\Repo\Spectator\src\main\java\games\sparking\spectator" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Repo\Spectator\src\main\java\games\sparking\spectator" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="games.sparking.crystalguard.punish.menu" />
       <recent name="games.sparking.crystalguard.staffmode" />
       <recent name="games.sparking.crystalguard.reports" />
       <recent name="games.sparking.crystalguard.utils" />
@@ -110,7 +174,7 @@
             <option name="environmentProperties">
               <map />
             </option>
-            <option name="jreName" value="corretto-1.8 (2)" />
+            <option name="jreName" value="temurin-21" />
             <option name="mavenProperties">
               <map />
             </option>
@@ -184,8 +248,19 @@
       <option name="project" value="LOCAL" />
       <updated>1753896467380</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1.21.8 convert, updated punishment handler">
+      <option name="closed" value="true" />
+      <created>1753896992105</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1753896992105</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -202,7 +277,25 @@
           <properties field="menu" class="games.sparking.spectator.menu.buttons.BackButton" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/utils/ChatMessage.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/games/sparking/crystalguard/reports/listeners/ReportListeners.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

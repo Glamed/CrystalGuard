@@ -25,18 +25,18 @@ public abstract class Button {
     }
 
     public static Button createPlaceholder() {
-        return createPlaceholder(" ", Material.STAINED_GLASS_PANE, (short) 15);
+        return createPlaceholder(" ", Material.BLACK_STAINED_GLASS_PANE);
     }
 
-    public static Button createPlaceholder(Material material, short subId) {
-        return createPlaceholder(" ", material, subId);
+    public static Button createPlaceholder(Material material) {
+        return createPlaceholder(" ", material);
     }
 
-    public static Button createPlaceholder(String displayName, Material material, short subId) {
+    public static Button createPlaceholder(String displayName, Material material) {
         return new Button() {
             @Override
             public ItemStack getItem(Player player) {
-                return new ItemBuilder(material, subId)
+                return new ItemBuilder(material)
                         .setDisplayName(displayName)
                         .build();
             }

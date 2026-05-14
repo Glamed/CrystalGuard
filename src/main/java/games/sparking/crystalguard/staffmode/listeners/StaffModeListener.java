@@ -2,7 +2,7 @@ package games.sparking.crystalguard.staffmode.listeners;
 
 import games.sparking.crystalguard.staffmode.StaffMode;
 import games.sparking.crystalguard.staffmode.menu.ExamineBlockMenu;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -36,12 +36,12 @@ public class StaffModeListener implements Listener {
 
     private static final List<Material> DENY_INTERACT = Arrays.asList(
             Material.FLINT_AND_STEEL,
-            Material.FIREBALL,
+            Material.FIRE_CHARGE,
             Material.MINECART,
-            Material.COMMAND_MINECART,
-            Material.EXPLOSIVE_MINECART,
+            Material.COMMAND_BLOCK_MINECART,
+            Material.TNT_MINECART,
             Material.HOPPER_MINECART,
-            Material.STORAGE_MINECART,
+            Material.CHEST_MINECART,
             Material.ITEM_FRAME,
             Material.PAINTING,
             Material.SNOW
@@ -59,6 +59,13 @@ public class StaffModeListener implements Listener {
 
     public static void addDropProtected(ItemStack... items) {
         DROP_PROTECTED.addAll(Arrays.asList(items));
+    }
+
+    @EventHandler
+    public void playerQuitEvent(PlayerQuitEvent event) {
+        StaffMode staffMode = StaffMode.get(event.getPlayer());
+        if (staffMode.isEnabled())
+            staffMode.toggleEnabled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -82,8 +89,8 @@ public class StaffModeListener implements Listener {
                 event.setCancelled(true);
                 InventoryHolder holder = (InventoryHolder) block.getState();
                 new ExamineBlockMenu(holder).openMenu(player);
-                player.sendMessage(CC.GOLD + "Opening " + CC.WHITE +
-                        holder.getInventory().getType().getDefaultTitle() + CC.GOLD + " silently.");
+                player.sendMessage(CC.MINECRAFT_GOLD + "Opening " + CC.MINECRAFT_WHITE +
+                        holder.getInventory().getType().getDefaultTitle() + CC.MINECRAFT_GOLD + " silently.");
                 return;
             }
         }
@@ -99,9 +106,9 @@ public class StaffModeListener implements Listener {
 
         if (!player.hasPermission("cw.dev")) {
             if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-                    && (player.getItemInHand() != null && DENY_INTERACT.contains(player.getItemInHand().getType()))) {
+                    && (player.getItemInUse() != null && DENY_INTERACT.contains(player.getItemInUse().getType()))) {
                 event.setCancelled(true);
-                player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+                player.sendMessage(CC.MINECRAFT_RED + CC.BOLD + "You cannot do this while in staff mode.");
                 return;
             }
         }
@@ -111,17 +118,16 @@ public class StaffModeListener implements Listener {
                     && block != null && (block.getState().getData() instanceof Openable
                     || block.getState().getData() instanceof Redstone)) {
                 event.setCancelled(true);
-                player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+                player.sendMessage(CC.MINECRAFT_RED + CC.BOLD + "You cannot do this while in staff mode.");
             }
         }
     }
 
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        if (!(event.getEntity().getShooter() instanceof Player))
+        if (!(event.getEntity().getShooter() instanceof Player player))
             return;
 
-        Player player = (Player) event.getEntity().getShooter();
         StaffMode staffMode = StaffMode.get(player);
 
         if (!staffMode.isEnabled() && !staffMode.isVanished())
@@ -129,7 +135,7 @@ public class StaffModeListener implements Listener {
 
         if (staffMode.isVanished() || !player.hasPermission("cw.staff")) {
             event.setCancelled(true);
-            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+            player.sendMessage(CC.MINECRAFT_RED + CC.BOLD + "You cannot do this while in staff mode.");
         }
     }
 
@@ -141,19 +147,17 @@ public class StaffModeListener implements Listener {
 
     @EventHandler
     public void onVehicleDestroy(VehicleDestroyEvent event) {
-        if (!(event.getAttacker() instanceof Player))
+        if (!(event.getAttacker() instanceof Player player))
             return;
 
-        Player player = (Player) event.getAttacker();
         if (!testBuild(player, true)) event.setCancelled(true);
     }
 
     @EventHandler
     public void onVehicleDamage(VehicleDamageEvent event) {
-        if (!(event.getAttacker() instanceof Player))
+        if (!(event.getAttacker() instanceof Player player))
             return;
 
-        Player player = (Player) event.getAttacker();
         if (!testBuild(player, true))
             event.setCancelled(true);
     }
@@ -171,9 +175,13 @@ public class StaffModeListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerPickupItem(PlayerPickupItemEvent event) {
-        StaffMode staffMode = StaffMode.get(event.getPlayer());
-        if (staffMode.isVanished() || staffMode.isEnabled()) event.setCancelled(true);
+    public void onPlayerPickupItem(EntityPickupItemEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+
+        StaffMode staffMode = StaffMode.get(player);
+        if (staffMode.isVanished() || staffMode.isEnabled()) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -213,7 +221,7 @@ public class StaffModeListener implements Listener {
 
         if (staffMode.isEnabled() && (staffMode.isVanished() || !player.hasPermission("cw.staff"))) {
             event.setCancelled(true);
-            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+            player.sendMessage(CC.MINECRAFT_RED + CC.BOLD + "You cannot do this while in staff mode.");
         }
 
         if (!event.isCancelled()) {
@@ -225,10 +233,8 @@ public class StaffModeListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player))
+        if (!(event.getEntity() instanceof Player player))
             return;
-
-        Player player = (Player) event.getEntity();
 
         StaffMode staffMode = StaffMode.get(player);
         if (staffMode.isEnabled() || staffMode.isVanished()) event.setCancelled(true);
@@ -257,10 +263,9 @@ public class StaffModeListener implements Listener {
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
-        if (!(event.getEntity() instanceof Player))
+        if (!(event.getEntity() instanceof Player player))
             return;
 
-        Player player = (Player) event.getEntity();
         if (StaffMode.isStaffMode(player)) {
             event.setCancelled(true);
             event.setFoodLevel(20);
@@ -278,7 +283,7 @@ public class StaffModeListener implements Listener {
             return true;
 
         if (message)
-            player.sendMessage(CC.RED + CC.BOLD + "You cannot do this while in staff mode.");
+            player.sendMessage(CC.MINECRAFT_RED + CC.BOLD + "You cannot do this while in staff mode.");
         return false;
     }
 

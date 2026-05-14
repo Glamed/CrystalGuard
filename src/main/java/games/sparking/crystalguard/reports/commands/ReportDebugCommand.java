@@ -1,10 +1,10 @@
 package games.sparking.crystalguard.reports.commands;
 
-import games.sparking.crystalguard.reports.PunishmentTypes;
 import games.sparking.crystalguard.reports.Reason;
 import games.sparking.crystalguard.reports.Report;
+import games.sparking.crystalguard.reports.ReportCategoryType;
 import games.sparking.crystalguard.reports.ReportService;
-import games.sparking.crystalguard.utils.CC;
+import games.sparking.crystalguard.utils.messages.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,25 +17,6 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 public class ReportDebugCommand implements CommandExecutor {
-
-    public Report getNextReport() {
-        TreeMap<Double, Report> reports = new TreeMap<>();
-
-        for (Report report : ReportService.getPending()) {
-            double priority = 30;
-
-            for (Reason reason : report.getReasons()) {
-                double ageImpact = Math.pow(0.95, reason._getTimeElapsedSinceReport().toMinutes()); // Calculate age impact separately
-
-                priority += 5 * ageImpact; // Add 5 to priority before multiplying by age impact
-                priority += PunishmentTypes.valueOf(reason.getMessage()).getPriority() * ageImpact;
-            }
-
-            reports.put(priority, report);
-        }
-
-        return reports.isEmpty() ? null : reports.firstEntry().getValue(); // Get the report with the lowest priority
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -67,7 +48,7 @@ public class ReportDebugCommand implements CommandExecutor {
 
                     double ageImpact = priority * Math.pow(0.95, reason._getTimeElapsedSinceReport().toMinutes());
 
-                    priority += PunishmentTypes.valueOf(reason.getMessage()).getPriority() * ageImpact;
+                    priority += ReportCategoryType.valueOf(reason.getMessage()).getPriority() * ageImpact;
                 }
 
                 reports.put(priority, report);
@@ -84,20 +65,22 @@ public class ReportDebugCommand implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("2")) {
-            sender.sendMessage(getNextReport().getReportID());
+            sender.sendMessage(new ReportHandleCommand().getNextReport().getReportID());
             return true;
         }
 
         if (args[0].equalsIgnoreCase("3")) {
-            Report report = getNextReport();
+            ReportHandleCommand reportHandleCommand = new ReportHandleCommand();
+            Report report = reportHandleCommand.getNextReport();
             sender.sendMessage(CC.format("&8&m------------------------------------------------"));
             sender.sendMessage("Report ID: " + report.getReportID());
             sender.sendMessage("Suspect: " + Bukkit.getPlayer(UUID.fromString(report.getSuspectUUID())).getName());
+            sender.sendMessage("Priority: " + reportHandleCommand.calculatePriority(report));
             sender.sendMessage("Category: " + report.getCategory());
             sender.sendMessage(report.getReasons().size() + " total reports: ");
             int size = 1;
             for (Reason reason : report.getReasons()) {
-                sender.sendMessage("(" + size++ + ") " + Bukkit.getPlayer(UUID.fromString(reason.getUuid())).getName() + ": " + PunishmentTypes.valueOf(reason.getMessage()).getName());
+                sender.sendMessage("(" + size++ + ") " + Bukkit.getPlayer(UUID.fromString(reason.getUuid())).getName() + ": " + ReportCategoryType.valueOf(reason.getMessage()).getName());
             }
             sender.sendMessage(CC.format("&8&m------------------------------------------------"));
             return true;
@@ -112,7 +95,7 @@ public class ReportDebugCommand implements CommandExecutor {
                 sender.sendMessage(report.getReasons().size() + " total reports: ");
                 int size = 1;
                 for (Reason reason : report.getReasons()) {
-                    sender.sendMessage("(" + size++ + ") " + Bukkit.getPlayer(UUID.fromString(reason.getUuid())).getName() + ": " + PunishmentTypes.valueOf(reason.getMessage()).getName());
+                    sender.sendMessage("(" + size++ + ") " + Bukkit.getPlayer(UUID.fromString(reason.getUuid())).getName() + ": " + ReportCategoryType.valueOf(reason.getMessage()).getName());
                 }
                 if (report.getMessages() != null && !report.getMessages().isEmpty()) {
                     System.out.println("Report ID: " + report.getReportID());

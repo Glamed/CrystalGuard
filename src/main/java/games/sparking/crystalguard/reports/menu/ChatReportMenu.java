@@ -56,6 +56,39 @@ public class ChatReportMenu extends PagedMenu {
         return buttons;
     }
 
+
+    private List<String> split(String desc) {
+        List<String> lore = new ArrayList<>();
+        StringBuilder line = new StringBuilder();
+        boolean first = true;
+
+        for (String w : desc.split(" ")) {
+            if (line.length() + w.length() + 1 > 40) {
+                if (first) {
+                    lore.add(ChatColor.translateAlternateColorCodes('&', " &8-&d " + line));
+                    first = false;
+                } else {
+                    lore.add(ChatColor.translateAlternateColorCodes('&', "&d   " + line));
+                }
+                line = new StringBuilder(w);
+            } else {
+                if (!line.isEmpty()) line.append(" ");
+                line.append(w);
+            }
+        }
+
+        if (!line.isEmpty()) {
+            if (first) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', " &8-&d " + line));
+            } else {
+                lore.add(ChatColor.translateAlternateColorCodes('&', "&d   " + line));
+            }
+        }
+
+        return lore;
+    }
+
+
     @RequiredArgsConstructor
     public class ChatHeads extends Button {
 
@@ -69,14 +102,15 @@ public class ChatReportMenu extends PagedMenu {
             List<String> lore = new ArrayList<>();
 //            lore.add("");
             lore.add(ChatColor.translateAlternateColorCodes('&', "&7Sent on&8:&d " + TimeUtils.formatDate(mc.getTime())));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&7Risk&8:&d " + mc.getMLFlagLevel()));
             lore.add(ChatColor.translateAlternateColorCodes('&', "&7Message&8: "));
-            lore.add(ChatColor.translateAlternateColorCodes('&', " &8-&d " + mc.getMessage()));
+            lore.addAll(split(mc.getMessage()));
             lore.add("");
             lore.add(ChatColor.translateAlternateColorCodes('&', "&eRight click to view message receivers"));
             lore.add(ChatColor.translateAlternateColorCodes('&', "&eLeft click to punish"));
 
 
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(offlinePlayer.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5" + offlinePlayer.getName()))
                     .setLore(lore)
@@ -87,9 +121,9 @@ public class ChatReportMenu extends PagedMenu {
         public void click(Player whoClicked, int slot, ClickType clickType, int hotbarButton) {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(mc.getUuid()));
 
-            if (clickType == ClickType.RIGHT) {
+            if (clickType == org.bukkit.event.inventory.ClickType.RIGHT) {
                 new ChatReportPlayerMenu(id, mc).openMenu(whoClicked);
-            } else if (clickType == ClickType.LEFT) {
+            } else if (clickType == org.bukkit.event.inventory.ClickType.LEFT) {
                 new PunishMenu(offlinePlayer).openMenu(whoClicked);
             }
         }

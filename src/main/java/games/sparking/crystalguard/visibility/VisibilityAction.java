@@ -4,6 +4,7 @@ public enum VisibilityAction {
 
     SHOW,
     HIDE,
-    NEUTRAL
+    NEUTRAL,
+    GHOST
 
 }

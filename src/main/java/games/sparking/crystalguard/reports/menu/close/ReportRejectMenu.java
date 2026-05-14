@@ -4,11 +4,11 @@ import games.sparking.crystalguard.CrystalGuard;
 import games.sparking.crystalguard.reports.RejectionTypes;
 import games.sparking.crystalguard.reports.Report;
 import games.sparking.crystalguard.reports.ReportService;
-import games.sparking.crystalguard.utils.CC;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.menu.Button;
 import games.sparking.crystalguard.utils.menu.Menu;
 import games.sparking.crystalguard.utils.menu.menu.ConfirmationMenu;
+import games.sparking.crystalguard.utils.messages.CC;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,7 +47,7 @@ public class ReportRejectMenu extends Menu {
         buttons.put(4, new HeadButton(target));
 
         buttons.put(21, new TypeButton(RejectionTypes.INSUFFICIENT_EVIDENCE, report));
-        buttons.put(23, new TypeButton(RejectionTypes.ABUSIVE, report));
+        buttons.put(23, new TypeButton(RejectionTypes.ABUSE, report));
 
 //        int index = 20;
 //        for (RejectionTypes types : RejectionTypes.values()) {
@@ -66,7 +66,7 @@ public class ReportRejectMenu extends Menu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemBuilder(Material.SKULL_ITEM, 3)
+            return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(p.getName())
                     .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Report &d" + p.getName()))
                     .build();

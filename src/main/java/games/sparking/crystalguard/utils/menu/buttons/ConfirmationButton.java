@@ -28,8 +28,11 @@ public class ConfirmationButton extends Button {
 
     @Override
     public ItemStack getItem(Player player) {
-        return new ItemBuilder(Material.WOOL, (short) (bool ? 5 : 14))
-                .setDisplayName(bool ? ChatColor.GREEN + "" + ChatColor.BOLD + name : ChatColor.RED + "" + ChatColor.BOLD + name)
+        Material woolType = bool ? Material.GREEN_WOOL : Material.RED_WOOL;
+        ChatColor color = bool ? ChatColor.GREEN : ChatColor.RED;
+
+        return new ItemBuilder(woolType)
+                .setDisplayName(color + "" + ChatColor.BOLD + name)
                 .build();
     }
 

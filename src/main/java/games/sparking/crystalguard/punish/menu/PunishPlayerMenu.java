@@ -1,7 +1,8 @@
-package games.sparking.crystalguard.reports.menu;
+package games.sparking.crystalguard.punish.menu;
 
 import games.sparking.crystalguard.reports.ReportCategoryType;
 import games.sparking.crystalguard.reports.ReportManager;
+import games.sparking.crystalguard.reports.menu.ReportMenu;
 import games.sparking.crystalguard.utils.ItemBuilder;
 import games.sparking.crystalguard.utils.Profile;
 import games.sparking.crystalguard.utils.menu.Button;
@@ -21,13 +22,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
-public class ReportPlayerMenu extends PagedMenu {
+public class PunishPlayerMenu extends PagedMenu {
 
     ReportCategoryType type;
 
     @Override
     public String getRawTitle(Player player) {
-        return "Report " + Bukkit.getOnlinePlayers().size() + (Bukkit.getOnlinePlayers().size() > 1 ? " players" : " player");
+        return "Punish " + Bukkit.getOnlinePlayers().size() + (Bukkit.getOnlinePlayers().size() > 1 ? " players" : " player");
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ReportPlayerMenu extends PagedMenu {
         public ItemStack getItem(Player player) {
             return new ItemBuilder(Material.PLAYER_HEAD)
                     .setSkullOwner(p.getName())
-                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Report &d" + p.getName()))
+                    .setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7Punish &d" + p.getName()))
                     .build();
         }
 
@@ -75,7 +76,7 @@ public class ReportPlayerMenu extends PagedMenu {
         public void click(Player whoClicked, int slot, ClickType clickType, int hotbarButton) {
             if (clickType == ClickType.LEFT || clickType == ClickType.RIGHT) {
                 new ConfirmationMenu(
-                        "Report " + p.getName() + "?",
+                        "Punish " + p.getName() + "?",
                         b -> {
                             ReportManager.create(whoClicked, p, type);
                         }
